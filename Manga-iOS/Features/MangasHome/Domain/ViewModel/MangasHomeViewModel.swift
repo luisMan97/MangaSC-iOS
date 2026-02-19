@@ -22,7 +22,19 @@ final class MangasHomeViewModel {
     
     private let repository: MangasHomeRepositoryProtocol
     
-    init(repository: MangasHomeRepositoryProtocol = MangasHomeRepository()) {
+    init(repository: MangasHomeRepositoryProtocol) {
         self.repository = repository
+    }
+    
+    func loadMangas() async {
+        do {
+            self.mangas = try await repository.getMangas()
+            state = .loaded
+        } catch {
+            state = .failed(error.localizedDescription)
+        }
+        /*if mangas.isEmpty {
+            state = .empty
+        }*/
     }
 }

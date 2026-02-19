@@ -21,8 +21,9 @@ struct MangasHomeRepository: MangasHomeRepositoryProtocol, NetworkManager {
     func getMangas() async throws(NetworkError) -> [Manga] {
         try await getJSON(
             .get(.getMangas),
-            type: [MangaDTO].self
+            type: MangaCollectionDTO.self
         )
+        .items
         .compactMap(\.toManga)
     }
 }

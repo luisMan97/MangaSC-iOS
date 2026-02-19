@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Manga: Identifiable {
+struct Manga: Identifiable, Hashable {
     let id: Int
     let mainPicture: String
     let title: String

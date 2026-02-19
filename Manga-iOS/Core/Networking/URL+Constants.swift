@@ -12,5 +12,10 @@ private extension URL {
 }
 
 extension URL {
-    static let getMangas = baseURL.appending(path: "/list/mangas?page=1&per=50")
+    static let getMangas = baseURL
+        .appending(path: "/list/mangas")
+        .appending(queryItems: [
+            URLQueryItem(name: "page", value: "1"),
+            URLQueryItem(name: "per", value: "50")
+        ])
 }

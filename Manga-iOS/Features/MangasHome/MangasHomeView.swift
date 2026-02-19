@@ -8,11 +8,33 @@
 import SwiftUI
 
 struct MangasHomeView: View {
+    @State private var viewModel: MangasHomeViewModel
+    
+    init(viewModel: MangasHomeViewModel) {
+        _viewModel = State(initialValue: viewModel)
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        switch viewModel.state {
+        case .loading: loadingView
+        case .loaded: MangasListView(viewModel: viewModel)
+        case .failed(let error): Text("Error: \(error)")
+        }
+    }
+}
+
+private extension MangasHomeView {
+    
+    var loadingView: some View {
+        ProgressView()
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: .infinity
+            )
+            .task { await viewModel.loadMangas() }
     }
 }
 
 #Preview {
-    MangasHomeView()
+    MangasHomeFactory.getMangasHomeView()
 }

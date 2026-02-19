@@ -25,7 +25,7 @@ struct Manga_iOSApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MangasHomeFactory.getMangasHomeView()
         }
         .modelContainer(sharedModelContainer)
     }
